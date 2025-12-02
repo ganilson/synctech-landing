@@ -23,11 +23,114 @@ import gallery3 from "@assets/506052695_2472076559796250_2786976113178499270_n_1
 import gallery4 from "@assets/WhatsApp_Image_2025-11-03_at_16.17.29_(1)_1764691437364.jpeg";
 import gallery5 from "@assets/WhatsApp_Image_2025-11-03_at_16.17.29_1764691437366.jpeg";
 
+// --- Translation Data ---
+const translations = {
+  en: {
+    nav: {
+      services: "Services",
+      gallery: "Gallery",
+      partners: "Partners",
+      contact: "Contact",
+      quote: "Get a Quote"
+    },
+    hero: {
+      tagline: "Innovation • Support • Infrastructure",
+      title1: "Transforming",
+      title2: "Ideas Into Code",
+      subtitle: "Software House specialized in developing high-impact digital solutions.",
+      cta: "Let's talk?"
+    },
+    quote: {
+      title: "Request Quote",
+      desc: "Tell us about your project and we will contact you via WhatsApp.",
+      type: "Project Type",
+      details: "Project Details",
+      placeholder: "Describe your main features, ideal deadline, or references...",
+      submit: "Send via WhatsApp",
+      types: {
+        mobile: "Mobile App",
+        web: "Website / WebApp",
+        hybrid: "Hybrid System",
+        consulting: "IT Consulting"
+      }
+    },
+    gallery: {
+      title: "Our Culture",
+      desc: "An inside look at Synctech. Innovation happens when passionate people work together.",
+      viewAll: "View All",
+      events: "Events"
+    },
+    ai: {
+      powered: "POWERED BY GEMINI 2.5",
+      title: "Intelligence that understands your business",
+      desc: "Our AI is not just a chatbot. It understands the context of Synctech, our infrastructure, and can guide you to the ideal solution even before talking to a human.",
+      questions: [
+        "What technologies does Synctech use?",
+        "I need a Mobile App, how does it work?",
+        "Do you provide support after launch?"
+      ],
+      placeholder: "Ask about our services...",
+      assistantName: "Synctech Assistant"
+    }
+  },
+  pt: {
+    nav: {
+      services: "Serviços",
+      gallery: "Galeria",
+      partners: "Parceiros",
+      contact: "Contacto",
+      quote: "Solicitar Orçamento"
+    },
+    hero: {
+      tagline: "Inovação • Suporte • Infraestrutura",
+      title1: "Transformando",
+      title2: "Ideias em Código",
+      subtitle: "Software House especializada no desenvolvimento de soluções digitais de alto impacto.",
+      cta: "Vamos conversar?"
+    },
+    quote: {
+      title: "Solicitar Orçamento",
+      desc: "Conte-nos sobre o seu projeto e entraremos em contacto via WhatsApp.",
+      type: "Tipo de Projeto",
+      details: "Detalhes do Projeto",
+      placeholder: "Descreva suas funcionalidades principais, prazo ideal, ou referências...",
+      submit: "Enviar no WhatsApp",
+      types: {
+        mobile: "App Mobile",
+        web: "Website / WebApp",
+        hybrid: "Sistema Híbrido",
+        consulting: "Consultoria TI"
+      }
+    },
+    gallery: {
+      title: "Nossa Cultura",
+      desc: "Um olhar por dentro da Synctech. Inovação acontece quando pessoas apaixonadas trabalham juntas.",
+      viewAll: "Ver tudo",
+      events: "Eventos"
+    },
+    ai: {
+      powered: "POWERED BY GEMINI 2.5",
+      title: "Inteligência que entende o seu negócio",
+      desc: "Nossa IA não é apenas um chatbot. Ela entende o contexto da Synctech, nossa infraestrutura e pode guiar você para a solução ideal antes mesmo de falar com um humano.",
+      questions: [
+        "Quais tecnologias a Synctech usa?",
+        "Preciso de um App Mobile, como funciona?",
+        "Vocês dão suporte após o lançamento?"
+      ],
+      placeholder: "Pergunte sobre nossos serviços...",
+      assistantName: "Assistente Synctech"
+    }
+  }
+};
+
+type Language = 'en' | 'pt';
+
 // --- Components ---
 
-const Navbar = () => {
+const Navbar = ({ lang, setLang }: { lang: Language, setLang: (l: Language) => void }) => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const t = translations[lang].nav;
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -60,32 +163,48 @@ const Navbar = () => {
 
              <ul className="flex items-center px-4 gap-6 text-sm font-medium text-gray-300">
                <li><a href="#services" className="hover:text-white transition-colors relative group">
-                 Services
+                 {t.services}
                  <span className="absolute -bottom-1 left-0 w-0 h-px bg-gradient-warm transition-all group-hover:w-full"></span>
                </a></li>
                <li><a href="#gallery" className="hover:text-white transition-colors relative group">
-                 Gallery
+                 {t.gallery}
                  <span className="absolute -bottom-1 left-0 w-0 h-px bg-gradient-warm transition-all group-hover:w-full"></span>
                </a></li>
                <li><a href="#partners" className="hover:text-white transition-colors relative group">
-                 Partners
+                 {t.partners}
                  <span className="absolute -bottom-1 left-0 w-0 h-px bg-gradient-warm transition-all group-hover:w-full"></span>
                </a></li>
                <li><a href="#contact" className="hover:text-white transition-colors relative group">
-                 Contact
+                 {t.contact}
                  <span className="absolute -bottom-1 left-0 w-0 h-px bg-gradient-warm transition-all group-hover:w-full"></span>
                </a></li>
              </ul>
+             
+             {/* Language Switcher in Pill */}
+             <div className="flex items-center border-l border-white/10 pl-4 ml-2 gap-2">
+                <button 
+                  onClick={() => setLang('en')} 
+                  className={`text-xs font-bold px-2 py-1 rounded ${lang === 'en' ? 'bg-white text-black' : 'text-gray-400 hover:text-white'}`}
+                >
+                  EN
+                </button>
+                <button 
+                  onClick={() => setLang('pt')} 
+                  className={`text-xs font-bold px-2 py-1 rounded ${lang === 'pt' ? 'bg-white text-black' : 'text-gray-400 hover:text-white'}`}
+                >
+                  PT
+                </button>
+             </div>
 
              <div className={`overflow-hidden transition-all duration-500 ${scrolled ? "w-auto opacity-100 border-l border-white/10 pl-2" : "w-0 opacity-0"}`}>
-               <QuoteButton size="sm" className="h-8 text-xs" />
+               <QuoteButton size="sm" className="h-8 text-xs" lang={lang} />
              </div>
           </div>
         </nav>
 
         {/* CTA - Floating Right */}
         <div className={`pointer-events-auto transition-all duration-300 ${scrolled ? "opacity-0 -translate-y-4" : "opacity-100"}`}>
-          <QuoteButton />
+          <QuoteButton lang={lang} />
         </div>
       </header>
 
@@ -94,35 +213,40 @@ const Navbar = () => {
         <div className="pointer-events-auto flex items-center gap-2">
            <img src={logo} alt="Synctech" className="h-8 w-auto" />
         </div>
-        <button 
-          className="pointer-events-auto text-white w-10 h-10 flex items-center justify-center rounded-full bg-white/10 backdrop-blur-md border border-white/10"
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-        >
-          {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
-        </button>
+        <div className="pointer-events-auto flex gap-2">
+           <button onClick={() => setLang(lang === 'en' ? 'pt' : 'en')} className="w-8 h-8 rounded-full bg-white/10 backdrop-blur flex items-center justify-center text-xs font-bold border border-white/10">
+             {lang.toUpperCase()}
+           </button>
+           <button 
+             className="text-white w-10 h-10 flex items-center justify-center rounded-full bg-white/10 backdrop-blur-md border border-white/10"
+             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+           >
+             {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
+           </button>
+        </div>
       </div>
 
       {mobileMenuOpen && (
         <div className="fixed inset-0 z-40 bg-black/95 backdrop-blur-xl flex flex-col justify-center items-center gap-8 md:hidden animate-in fade-in zoom-in-95 duration-300">
-          <a href="#services" className="text-2xl font-medium text-white" onClick={() => setMobileMenuOpen(false)}>Services</a>
-          <a href="#gallery" className="text-2xl font-medium text-white" onClick={() => setMobileMenuOpen(false)}>Gallery</a>
-          <a href="#partners" className="text-2xl font-medium text-white" onClick={() => setMobileMenuOpen(false)}>Partners</a>
-          <a href="#contact" className="text-2xl font-medium text-white" onClick={() => setMobileMenuOpen(false)}>Contact</a>
-          <QuoteButton size="lg" className="px-8 py-6 text-lg" />
+          <a href="#services" className="text-2xl font-medium text-white" onClick={() => setMobileMenuOpen(false)}>{t.services}</a>
+          <a href="#gallery" className="text-2xl font-medium text-white" onClick={() => setMobileMenuOpen(false)}>{t.gallery}</a>
+          <a href="#partners" className="text-2xl font-medium text-white" onClick={() => setMobileMenuOpen(false)}>{t.partners}</a>
+          <a href="#contact" className="text-2xl font-medium text-white" onClick={() => setMobileMenuOpen(false)}>{t.contact}</a>
+          <QuoteButton size="lg" className="px-8 py-6 text-lg" lang={lang} />
         </div>
       )}
     </>
   );
 };
 
-const QuoteButton = ({ className = "", size = "default" }: { className?: string, size?: "default" | "sm" | "lg" }) => {
+const QuoteButton = ({ className = "", size = "default", lang = "en" }: { className?: string, size?: "default" | "sm" | "lg", lang: Language }) => {
   const [open, setOpen] = useState(false);
-  const [step, setStep] = useState(1);
   const [projectType, setProjectType] = useState("mobile");
   const [details, setDetails] = useState("");
+  const t = translations[lang].quote;
 
   const handleWhatsApp = () => {
-    const message = `Olá Synctech! 👋\nGostaria de solicitar um orçamento.\n\n🚀 *Tipo de Projeto:* ${projectType.toUpperCase()}\n📝 *Detalhes:* ${details}\n\nAguardo retorno!`;
+    const message = `Hi Synctech! 👋\nI'd like to request a quote.\n\n🚀 *Project Type:* ${projectType.toUpperCase()}\n📝 *Details:* ${details}\n\nLooking forward to hearing from you!`;
     const url = `https://wa.me/244946808054?text=${encodeURIComponent(message)}`;
     window.open(url, "_blank");
     setOpen(false);
@@ -135,7 +259,7 @@ const QuoteButton = ({ className = "", size = "default" }: { className?: string,
         className={`rounded-full bg-white text-black hover:bg-gray-200 font-semibold shadow-[0_0_20px_rgba(255,255,255,0.2)] ${className}`}
         size={size}
       >
-        Solicitar Orçamento
+        {t.title}
       </Button>
 
       <Dialog open={open} onOpenChange={setOpen}>
@@ -144,30 +268,30 @@ const QuoteButton = ({ className = "", size = "default" }: { className?: string,
              <div className="absolute top-4 right-4 opacity-20">
                 <img src={logo} className="h-24 w-auto" />
              </div>
-             <DialogTitle className="text-2xl font-bold text-white z-10">Vamos criar algo incrível?</DialogTitle>
+             <DialogTitle className="text-2xl font-bold text-white z-10">{t.title}</DialogTitle>
              <DialogDescription className="text-white/80 z-10">
-               Conte-nos sobre sua ideia e a transformaremos em realidade.
+               {t.desc}
              </DialogDescription>
            </div>
           
            <div className="p-6 grid gap-6">
             <div className="space-y-3">
-              <Label className="text-xs font-bold uppercase tracking-wider text-gray-400">O que você precisa?</Label>
+              <Label className="text-xs font-bold uppercase tracking-wider text-gray-400">{t.type}</Label>
               <RadioGroup defaultValue="mobile" onValueChange={setProjectType} className="grid grid-cols-2 gap-3">
                 {[
-                  { id: "mobile", icon: Smartphone, label: "App Mobile" },
-                  { id: "web", icon: Globe, label: "Website / WebApp" },
-                  { id: "hybrid", icon: Cpu, label: "Sistema Híbrido" },
-                  { id: "consulting", icon: Users, label: "Consultoria TI" }
+                  { id: "mobile", icon: Smartphone, label: t.types.mobile },
+                  { id: "web", icon: Globe, label: t.types.web },
+                  { id: "hybrid", icon: Cpu, label: t.types.hybrid },
+                  { id: "consulting", icon: Users, label: t.types.consulting }
                 ].map((item) => (
                   <div key={item.id}>
                     <RadioGroupItem value={item.id} id={item.id} className="peer sr-only" />
                     <Label
                       htmlFor={item.id}
-                      className="flex flex-col items-center justify-center gap-2 rounded-xl border border-white/10 bg-white/5 p-4 hover:bg-white/10 hover:border-primary/50 peer-data-[state=checked]:border-primary peer-data-[state=checked]:bg-primary/10 transition-all cursor-pointer h-24"
+                      className="flex flex-col items-center justify-center gap-2 rounded-xl border border-white/10 bg-white/5 p-4 hover:bg-white/10 hover:border-primary/50 peer-data-[state=checked]:border-primary peer-data-[state=checked]:bg-primary/10 transition-all cursor-pointer h-24 text-center"
                     >
                       <item.icon className="h-6 w-6 text-gray-300 peer-data-[state=checked]:text-primary" />
-                      <span className="text-sm font-medium">{item.label}</span>
+                      <span className="text-xs font-medium">{item.label}</span>
                     </Label>
                   </div>
                 ))}
@@ -175,10 +299,10 @@ const QuoteButton = ({ className = "", size = "default" }: { className?: string,
             </div>
             
             <div className="space-y-3">
-              <Label htmlFor="details" className="text-xs font-bold uppercase tracking-wider text-gray-400">Detalhes do Projeto</Label>
+              <Label htmlFor="details" className="text-xs font-bold uppercase tracking-wider text-gray-400">{t.details}</Label>
               <Textarea 
                 id="details" 
-                placeholder="Descreva suas funcionalidades principais, prazo ideal, ou referências..." 
+                placeholder={t.placeholder}
                 value={details}
                 onChange={(e) => setDetails(e.target.value)}
                 className="bg-black/20 border-white/10 min-h-[100px] focus:border-primary/50 resize-none"
@@ -187,12 +311,8 @@ const QuoteButton = ({ className = "", size = "default" }: { className?: string,
           
             <Button onClick={handleWhatsApp} className="w-full bg-[#25D366] hover:bg-[#128C7E] text-white font-bold h-12 rounded-xl text-base shadow-lg shadow-green-900/20">
               <MessageSquare className="mr-2 h-5 w-5" />
-              Solicitar via WhatsApp
+              {t.submit}
             </Button>
-            
-            <p className="text-center text-xs text-muted-foreground">
-              Resposta média em menos de 15 minutos.
-            </p>
           </div>
         </DialogContent>
       </Dialog>
@@ -200,12 +320,12 @@ const QuoteButton = ({ className = "", size = "default" }: { className?: string,
   );
 };
 
-const Hero = () => {
+const Hero = ({ lang }: { lang: Language }) => {
+  const t = translations[lang].hero;
   return (
     <section className="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
       {/* Background Image */}
       <div className="absolute inset-0 pointer-events-none z-0">
-        {/* Optimized image loading with priority hint via component structure (React handles this mostly, but explicit preload link in head helps too) */}
         <img 
           src={heroBg} 
           alt="Background" 
@@ -225,24 +345,24 @@ const Hero = () => {
         >
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-md mb-4">
             <span className="w-2 h-2 rounded-full bg-orange-500 animate-pulse" />
-            <span className="text-xs font-medium tracking-wide uppercase text-gray-300">Inovação • Suporte • Infraestrutura</span>
+            <span className="text-xs font-medium tracking-wide uppercase text-gray-300">{t.tagline}</span>
           </div>
 
           <h1 className="text-6xl md:text-8xl lg:text-9xl font-bold tracking-tighter leading-[0.9]">
-            <span className="block text-transparent bg-clip-text bg-gradient-to-b from-white to-white/50">Transforming</span>
-            <span className="block text-transparent bg-clip-text bg-gradient-to-b from-white/90 to-white/30 italic">Ideas Into Code</span>
+            <span className="block text-transparent bg-clip-text bg-gradient-to-b from-white to-white/50">{t.title1}</span>
+            <span className="block text-transparent bg-clip-text bg-gradient-to-b from-white/90 to-white/30 italic">{t.title2}</span>
           </h1>
 
           <p className="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto leading-relaxed font-light">
-            Software House especializada no desenvolvimento de soluções digitais de alto impacto.
+            {t.subtitle}
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-6 pt-8">
              <div className="flex items-center gap-4 bg-white/5 border border-white/10 backdrop-blur-xl rounded-full p-2 pr-6">
                 <div className="h-10 px-6 rounded-full bg-white/5 flex items-center justify-center text-sm text-gray-400 border border-white/5">
-                  Vamos conversar?
+                  {t.cta}
                 </div>
-                <QuoteButton className="bg-gradient-to-r from-orange-500 to-pink-500 hover:opacity-90 border-0 px-8 h-10 text-white" />
+                <QuoteButton className="bg-gradient-to-r from-orange-500 to-pink-500 hover:opacity-90 border-0 px-8 h-10 text-white" lang={lang} />
              </div>
           </div>
         </motion.div>
@@ -302,71 +422,78 @@ const Partners = () => {
 
   return (
     <section id="partners" className="py-32 container mx-auto px-6 relative z-20">
-      <div className="relative w-full rounded-[3rem] overflow-hidden bg-[#F5F5F7] dark:bg-[#070607] border border-white/5 min-h-[500px] flex flex-col items-center justify-center p-12 group">
+      <div className="relative w-full rounded-[3rem] overflow-hidden bg-[#F5F5F7] dark:bg-[#070607] min-h-[400px] flex flex-col items-center justify-center p-12 group">
         
-        {/* Radiant Propagating Light Effect */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full">
-           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] bg-gradient-to-r from-[#FF4E8B] via-[#FF7A3A] to-[#7C4DFF] rounded-full blur-[80px] opacity-60 animate-pulse-slow" />
-           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-r from-[#7C4DFF] to-[#FF4E8B] rounded-full blur-[120px] opacity-30 animate-spin-slow" />
+        {/* Subtle Ambient Light - Reduced intensity */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full pointer-events-none">
+           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-white/5 rounded-full blur-[100px]" />
         </div>
         
-        <div className="relative z-10 text-center mb-20">
-          <h2 className="text-4xl md:text-7xl font-bold tracking-tighter text-black dark:text-white mb-6 drop-shadow-2xl">
-            Trusted by<br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-white/60">
-              Industry Leaders
-            </span>
+        <div className="relative z-10 text-center mb-16">
+          <h2 className="text-3xl md:text-5xl font-bold tracking-tighter text-black dark:text-white mb-4">
+            Trusted by Industry Leaders
           </h2>
         </div>
 
-        <div className="relative w-full overflow-hidden py-10 backdrop-blur-sm rounded-xl bg-white/5 border border-white/5">
+        <div className="relative w-full overflow-hidden">
           <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-[#F5F5F7] dark:from-[#070607] to-transparent z-10" />
           <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-[#F5F5F7] dark:from-[#070607] to-transparent z-10" />
           
           <div className="flex gap-32 animate-marquee whitespace-nowrap items-center">
             {[...partners, ...partners, ...partners].map((p, i) => (
-               <span key={i} className="text-4xl md:text-5xl font-black text-black/40 dark:text-white/40 hover:text-black dark:hover:text-white transition-all duration-500 cursor-default select-none tracking-widest uppercase hover:scale-110 transform drop-shadow-lg">
+               <span key={i} className="text-4xl md:text-5xl font-black text-black/20 dark:text-white/20 hover:text-black dark:hover:text-white transition-all duration-500 cursor-default select-none tracking-widest uppercase hover:scale-105 transform">
                  {p}
                </span>
             ))}
           </div>
         </div>
       </div>
-      
-      <style>{`
-        @keyframes pulse-slow {
-          0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.6; }
-          50% { transform: translate(-50%, -50%) scale(1.5); opacity: 0.4; }
-        }
-        @keyframes spin-slow {
-          0% { transform: translate(-50%, -50%) rotate(0deg); }
-          100% { transform: translate(-50%, -50%) rotate(360deg); }
-        }
-        .animate-pulse-slow {
-          animation: pulse-slow 8s ease-in-out infinite;
-        }
-        .animate-spin-slow {
-          animation: spin-slow 20s linear infinite;
-        }
-      `}</style>
     </section>
   );
 };
 
-const Gallery = () => {
+const Newsletter = () => {
+  return (
+    <section className="py-20 container mx-auto px-6">
+      <div className="relative rounded-3xl overflow-hidden bg-white/5 border border-white/10 p-12 text-center max-w-4xl mx-auto">
+        <div className="absolute inset-0 bg-gradient-to-r from-purple-500/10 to-blue-500/10" />
+        
+        <div className="relative z-10 space-y-6">
+          <h2 className="text-3xl font-bold">Stay Updated</h2>
+          <p className="text-muted-foreground max-w-lg mx-auto">
+            Subscribe to our newsletter to receive the latest news about technology, innovation, and Synctech updates.
+          </p>
+          
+          <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto mt-8">
+            <Input 
+              placeholder="Enter your email" 
+              className="bg-black/20 border-white/10 h-12 text-base" 
+            />
+            <Button className="h-12 px-8 bg-white text-black hover:bg-gray-200 font-bold">
+              Subscribe
+            </Button>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+const Gallery = ({ lang }: { lang: Language }) => {
   const images = [gallery1, gallery2, gallery3, gallery4, gallery5];
+  const t = translations[lang].gallery;
   
   return (
     <section id="gallery" className="py-32 relative z-20 bg-black/20">
        <div className="container mx-auto px-6">
          <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
             <div>
-              <h2 className="text-3xl md:text-5xl font-bold mb-4">Nossa Cultura</h2>
+              <h2 className="text-3xl md:text-5xl font-bold mb-4">{t.title}</h2>
               <p className="text-muted-foreground max-w-md">
-                Um olhar por dentro da Synctech. Inovação acontece quando pessoas apaixonadas trabalham juntas.
+                {t.desc}
               </p>
             </div>
-            <Button variant="outline" className="rounded-full border-white/10">Ver tudo</Button>
+            <Button variant="outline" className="rounded-full border-white/10">{t.viewAll}</Button>
          </div>
 
          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 h-[600px]">
@@ -381,7 +508,7 @@ const Gallery = () => {
                </div>
 
                <div className="absolute bottom-6 left-6">
-                 <span className="px-3 py-1 rounded-full bg-white/10 backdrop-blur text-xs border border-white/10 mb-2 inline-block">Eventos</span>
+                 <span className="px-3 py-1 rounded-full bg-white/10 backdrop-blur text-xs border border-white/10 mb-2 inline-block">{t.events}</span>
                  <h3 className="text-xl font-bold">ANGOLA ICT FORUM 2024</h3>
                </div>
             </div>
@@ -401,12 +528,20 @@ const Gallery = () => {
   );
 };
 
-const AIChat = () => {
+const AIChat = ({ lang }: { lang: Language }) => {
+  const t = translations[lang].ai;
   const [messages, setMessages] = useState([
-    { role: "ai", content: "Olá! Sou a Synctech AI. Estou conectada a nossa base de conhecimento. Posso ajudar com orçamentos, portfólio ou detalhes técnicos da nossa stack." }
+    { role: "ai", content: lang === 'en' ? "Hello! I'm Synctech AI. I'm connected to our knowledge base. I can help with quotes, portfolio, or technical details of our stack." : "Olá! Sou a Synctech AI. Estou conectada a nossa base de conhecimento. Posso ajudar com orçamentos, portfólio ou detalhes técnicos da nossa stack." }
   ]);
   const [input, setInput] = useState("");
   const [isTyping, setIsTyping] = useState(false);
+
+  // Effect to reset chat when language changes
+  useEffect(() => {
+     setMessages([
+        { role: "ai", content: lang === 'en' ? "Hello! I'm Synctech AI. I'm connected to our knowledge base. I can help with quotes, portfolio, or technical details of our stack." : "Olá! Sou a Synctech AI. Estou conectada a nossa base de conhecimento. Posso ajudar com orçamentos, portfólio ou detalhes técnicos da nossa stack." }
+     ]);
+  }, [lang]);
 
   const handleSend = async () => {
     if (!input.trim()) return;
@@ -418,19 +553,13 @@ const AIChat = () => {
 
     // Enhanced Mock Response Logic
     setTimeout(() => {
-      let response = "Interessante! Posso conectar você a um de nossos especialistas para discutir isso em detalhes.";
+      let response = lang === 'en' ? "Interesting! I can connect you with one of our specialists to discuss this in detail." : "Interessante! Posso conectar você a um de nossos especialistas para discutir isso em detalhes.";
       const lowerInput = input.toLowerCase();
       
-      if (lowerInput.includes("preço") || lowerInput.includes("orçamento") || lowerInput.includes("valor") || lowerInput.includes("quanto custa")) {
-        response = "Os valores variam conforme a complexidade. Projetos simples começam sob consulta, mas para um valor exato, por favor use o botão 'Solicitar Orçamento' acima. Analisamos cada caso individualmente para oferecer o melhor custo-benefício.";
-      } else if (lowerInput.includes("contato") || lowerInput.includes("email") || lowerInput.includes("telefone") || lowerInput.includes("falar")) {
-        response = "Nossos canais diretos são:\n📞 946808054\n✉️ contacto@synctech.ao\n📍 Luanda, Angola\n\nTambém respondemos rapidamente pelo WhatsApp!";
-      } else if (lowerInput.includes("tecnologia") || lowerInput.includes("stack") || lowerInput.includes("linguagem") || lowerInput.includes("java") || lowerInput.includes("python")) {
-        response = "Nossa stack principal inclui Java, Python, TypeScript/Node.js e Azure para nuvem. Escolhemos a tecnologia ideal baseada na necessidade do seu projeto, garantindo performance e escalabilidade.";
-      } else if (lowerInput.includes("site") || lowerInput.includes("app") || lowerInput.includes("sistema")) {
-        response = "Desenvolvemos desde Landing Pages de alta conversão até Super Apps complexos e Sistemas ERP. Temos experiência em Mobile (iOS/Android), Web e Híbridos.";
-      } else if (lowerInput.includes("suporte") || lowerInput.includes("manutenção")) {
-        response = "Sim! Nosso lema é 'Inovação, Suporte e Infraestrutura'. Oferecemos contratos de manutenção contínua para garantir que seu software nunca pare.";
+      if (lowerInput.includes("preço") || lowerInput.includes("orçamento") || lowerInput.includes("price") || lowerInput.includes("quote")) {
+        response = lang === 'en' ? 
+          "Prices vary according to complexity. Simple projects start on request, but for an exact value, please use the 'Get a Quote' button above. We analyze each case individually." :
+          "Os valores variam conforme a complexidade. Projetos simples começam sob consulta, mas para um valor exato, por favor use o botão 'Solicitar Orçamento' acima. Analisamos cada caso individualmente.";
       }
       
       setMessages(prev => [...prev, { role: "ai", content: response }]);
@@ -447,19 +576,15 @@ const AIChat = () => {
       <div className="container mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center relative z-10">
         <div>
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/20 text-purple-400 text-xs font-bold mb-6">
-            <Zap size={12} /> POWERED BY GEMINI 2.5
+            <Zap size={12} /> {t.powered}
           </div>
-          <h2 className="text-4xl font-bold mb-6">Inteligência que entende <br/>o seu negócio</h2>
+          <h2 className="text-4xl font-bold mb-6 whitespace-pre-line">{t.title}</h2>
           <p className="text-muted-foreground text-lg mb-8 leading-relaxed">
-            Nossa IA não é apenas um chatbot. Ela entende o contexto da Synctech, nossa infraestrutura e pode guiar você para a solução ideal antes mesmo de falar com um humano.
+            {t.desc}
           </p>
           
           <div className="space-y-4">
-            {[
-              "Quais tecnologias a Synctech usa?", 
-              "Preciso de um App Mobile, como funciona?", 
-              "Vocês dão suporte após o lançamento?"
-            ].map((q, i) => (
+            {t.questions.map((q, i) => (
               <button 
                 key={i}
                 onClick={() => { setInput(q); handleSend(); }}
@@ -482,7 +607,7 @@ const AIChat = () => {
                 <span className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-500 border-2 border-black rounded-full"></span>
               </div>
               <div>
-                <div className="font-bold text-sm">Synctech Assistant</div>
+                <div className="font-bold text-sm">{t.assistantName}</div>
                 <div className="text-xs text-purple-300/80">Gemini 2.5 Model</div>
               </div>
             </div>
@@ -520,7 +645,7 @@ const AIChat = () => {
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={(e) => e.key === 'Enter' && handleSend()}
-                placeholder="Pergunte sobre nossos serviços..."
+                placeholder={t.placeholder}
                 className="w-full bg-white/5 border border-white/10 rounded-xl pl-4 pr-12 py-4 text-sm focus:outline-none focus:border-purple-500/50 focus:bg-white/10 transition-all text-white placeholder:text-gray-500"
               />
               <button 
@@ -588,14 +713,17 @@ const Footer = () => {
 };
 
 export default function Home() {
+  const [lang, setLang] = useState<Language>('en');
+  
   return (
     <div className="min-h-screen bg-background text-foreground selection:bg-primary/30 dark font-sans">
-      <Navbar />
-      <Hero />
+      <Navbar lang={lang} setLang={setLang} />
+      <Hero lang={lang} />
       <TechStack />
-      <Gallery />
+      <Gallery lang={lang} />
       <Partners />
-      <AIChat />
+      <Newsletter />
+      <AIChat lang={lang} />
       <Footer />
     </div>
   );
