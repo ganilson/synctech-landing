@@ -251,16 +251,36 @@ const Hero = () => {
   );
 };
 
-import techStackLogos from "@assets/generated_images/row_of_tech_stack_logos.png";
-
 const TechStack = () => {
+  // Using distinct items for the stack to look professional
+  const stack = [
+    { name: "Java", color: "#E76F00" },
+    { name: "Python", color: "#3776AB" },
+    { name: "TypeScript", color: "#3178C6" },
+    { name: "Node.js", color: "#339933" },
+    { name: "React", color: "#61DAFB" },
+    { name: "Azure", color: "#0078D4" },
+    { name: "Docker", color: "#2496ED" },
+    { name: "PostgreSQL", color: "#336791" },
+  ];
+
   return (
-    <section className="py-12 border-y border-white/5 bg-black/40 backdrop-blur-sm overflow-hidden relative z-20">
+    <section className="py-16 border-y border-white/5 bg-black/40 backdrop-blur-sm overflow-hidden relative z-20">
       <div className="absolute inset-0 bg-gradient-to-r from-background via-transparent to-background z-10 pointer-events-none" />
       
-      <div className="flex gap-24 animate-marquee whitespace-nowrap items-center">
-        {[1, 2, 3, 4].map((i) => (
-           <img key={i} src={techStackLogos} alt="Tech Stack" className="h-12 w-auto opacity-50 hover:opacity-100 transition-opacity" />
+      <div className="flex gap-16 animate-marquee whitespace-nowrap items-center">
+        {[...stack, ...stack, ...stack, ...stack].map((tech, i) => (
+           <div key={i} className="flex items-center gap-3 group cursor-default">
+             {/* Tech "Logo" using stylized text/icon placeholder style since we want vector look */}
+             <div className="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center group-hover:bg-white/10 transition-colors shadow-lg">
+               <span className="text-lg font-bold" style={{ color: tech.color }}>
+                 {tech.name.substring(0, 2).toUpperCase()}
+               </span>
+             </div>
+             <span className="text-xl font-bold text-white/40 group-hover:text-white/90 transition-colors">
+               {tech.name}
+             </span>
+           </div>
         ))}
       </div>
       
@@ -270,7 +290,7 @@ const TechStack = () => {
           100% { transform: translateX(-50%); }
         }
         .animate-marquee {
-          animation: marquee 30s linear infinite;
+          animation: marquee 40s linear infinite;
         }
       `}</style>
     </section>
@@ -278,20 +298,20 @@ const TechStack = () => {
 };
 
 const Partners = () => {
-  // Using the generated partner logos strip or text if loading fails
-  // Design based on the reference: Large card with glowing center
-  
   const partners = ["UNITEL", "BAI", "SONANGOL", "MININT", "AGT", "NCR", "Movicel"];
 
   return (
-    <section id="partners" className="py-24 container mx-auto px-6 relative z-20">
-      <div className="relative w-full rounded-[3rem] overflow-hidden bg-[#F5F5F7] dark:bg-[#070607] border border-white/5 min-h-[400px] flex flex-col items-center justify-center p-12">
+    <section id="partners" className="py-32 container mx-auto px-6 relative z-20">
+      <div className="relative w-full rounded-[3rem] overflow-hidden bg-[#F5F5F7] dark:bg-[#070607] border border-white/5 min-h-[500px] flex flex-col items-center justify-center p-12 group">
         
-        {/* The Reference Glow Effect - Purple/Pink Gradient */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[60%] h-[60%] bg-gradient-to-r from-[#FF4E8B] via-[#FF7A3A] to-[#7C4DFF] blur-[120px] opacity-40 dark:opacity-20 pointer-events-none" />
+        {/* Radiant Propagating Light Effect */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full">
+           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] bg-gradient-to-r from-[#FF4E8B] via-[#FF7A3A] to-[#7C4DFF] rounded-full blur-[80px] opacity-60 animate-pulse-slow" />
+           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-r from-[#7C4DFF] to-[#FF4E8B] rounded-full blur-[120px] opacity-30 animate-spin-slow" />
+        </div>
         
-        <div className="relative z-10 text-center mb-16">
-          <h2 className="text-4xl md:text-6xl font-bold tracking-tighter text-black dark:text-white mb-4">
+        <div className="relative z-10 text-center mb-20">
+          <h2 className="text-4xl md:text-7xl font-bold tracking-tighter text-black dark:text-white mb-6 drop-shadow-2xl">
             Trusted by<br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-white/60">
               Industry Leaders
@@ -299,19 +319,36 @@ const Partners = () => {
           </h2>
         </div>
 
-        <div className="relative w-full overflow-hidden">
+        <div className="relative w-full overflow-hidden py-10 backdrop-blur-sm rounded-xl bg-white/5 border border-white/5">
           <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-[#F5F5F7] dark:from-[#070607] to-transparent z-10" />
           <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-[#F5F5F7] dark:from-[#070607] to-transparent z-10" />
           
-          <div className="flex gap-24 animate-marquee whitespace-nowrap items-center">
+          <div className="flex gap-32 animate-marquee whitespace-nowrap items-center">
             {[...partners, ...partners, ...partners].map((p, i) => (
-               <span key={i} className="text-3xl md:text-4xl font-bold text-black/80 dark:text-white/80 hover:text-black dark:hover:text-white transition-colors cursor-default select-none tracking-widest uppercase">
+               <span key={i} className="text-4xl md:text-5xl font-black text-black/40 dark:text-white/40 hover:text-black dark:hover:text-white transition-all duration-500 cursor-default select-none tracking-widest uppercase hover:scale-110 transform drop-shadow-lg">
                  {p}
                </span>
             ))}
           </div>
         </div>
       </div>
+      
+      <style>{`
+        @keyframes pulse-slow {
+          0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.6; }
+          50% { transform: translate(-50%, -50%) scale(1.5); opacity: 0.4; }
+        }
+        @keyframes spin-slow {
+          0% { transform: translate(-50%, -50%) rotate(0deg); }
+          100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+        .animate-pulse-slow {
+          animation: pulse-slow 8s ease-in-out infinite;
+        }
+        .animate-spin-slow {
+          animation: spin-slow 20s linear infinite;
+        }
+      `}</style>
     </section>
   );
 };
