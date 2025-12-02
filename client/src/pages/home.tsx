@@ -16,6 +16,18 @@ import { Textarea } from "@/components/ui/textarea";
 import heroBg from "@assets/generated_images/dark_fluid_organic_blobs_with_rim_lighting.png";
 import logo from "@assets/SyncTech_LOGO_01_White_1764691366645.png";
 
+// Tech Stack SVGs
+import nodejsLogo from "@assets/nodejs-1.svg";
+import mongodbLogo from "@assets/mongodb-icon-2.svg";
+import javascriptLogo from "@assets/javascript-1.svg";
+import javaLogo from "@assets/java-4.svg";
+import dockerLogo from "@assets/docker-4.svg";
+import strapiLogo from "@assets/strapi-full-logo-dark.svg";
+import typescriptLogo from "@assets/typescript-2.svg";
+import reactLogo from "@assets/react-2.svg";
+import pythonLogo from "@assets/python-6.svg";
+import rabbitmqLogo from "@assets/rabbitmq.svg";
+
 // Gallery Images
 import gallery1 from "@assets/WhatsApp_Image_2025-11-03_at_16.28.08_1764691437358.jpeg";
 import gallery2 from "@assets/487705912_2402136696790237_1568879427472810476_n_1764691437360.jpg";
@@ -109,7 +121,7 @@ const translations = {
       events: "Eventos"
     },
     ai: {
-      powered: "POWERED BY GEMINI 2.5",
+      powered: "POWERED BY SYNCTECH",
       title: "Inteligência que entende o seu negócio",
       desc: "Nossa IA não é apenas um chatbot. Ela entende o contexto da Synctech, nossa infraestrutura e pode guiar você para a solução ideal antes mesmo de falar com um humano.",
       questions: [
@@ -372,16 +384,18 @@ const Hero = ({ lang }: { lang: Language }) => {
 };
 
 const TechStack = () => {
-  // Using distinct items for the stack to look professional
+  // All technologies with their logos
   const stack = [
-    { name: "Java", color: "#E76F00" },
-    { name: "Python", color: "#3776AB" },
-    { name: "TypeScript", color: "#3178C6" },
-    { name: "Node.js", color: "#339933" },
-    { name: "React", color: "#61DAFB" },
-    { name: "Azure", color: "#0078D4" },
-    { name: "Docker", color: "#2496ED" },
-    { name: "PostgreSQL", color: "#336791" },
+    { name: "Node.js", logo: nodejsLogo },
+    { name: "MongoDB", logo: mongodbLogo },
+    { name: "JavaScript", logo: javascriptLogo },
+    { name: "Java", logo: javaLogo },
+    { name: "Docker", logo: dockerLogo },
+    { name: "Strapi", logo: strapiLogo },
+    { name: "TypeScript", logo: typescriptLogo },
+    { name: "React", logo: reactLogo },
+    { name: "Python", logo: pythonLogo },
+    { name: "RabbitMQ", logo: rabbitmqLogo },
   ];
 
   return (
@@ -391,11 +405,13 @@ const TechStack = () => {
       <div className="flex gap-16 animate-marquee whitespace-nowrap items-center">
         {[...stack, ...stack, ...stack, ...stack].map((tech, i) => (
            <div key={i} className="flex items-center gap-3 group cursor-default">
-             {/* Tech "Logo" using stylized text/icon placeholder style since we want vector look */}
-             <div className="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center group-hover:bg-white/10 transition-colors shadow-lg">
-               <span className="text-lg font-bold" style={{ color: tech.color }}>
-                 {tech.name.substring(0, 2).toUpperCase()}
-               </span>
+             {/* Tech Logo */}
+             <div className="w-16 h-16 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center group-hover:bg-white/10 transition-all shadow-lg p-3 group-hover:scale-110">
+               <img 
+                 src={tech.logo} 
+                 alt={tech.name}
+                 className="w-full h-full object-contain opacity-70 group-hover:opacity-100 transition-opacity"
+               />
              </div>
              <span className="text-xl font-bold text-white/40 group-hover:text-white/90 transition-colors">
                {tech.name}
@@ -418,7 +434,7 @@ const TechStack = () => {
 };
 
 const Partners = () => {
-  const partners = ["UNITEL", "BAI", "SONANGOL", "MININT", "AGT", "NCR", "Movicel"];
+  const partners = ["BITECH", "CREDIT BLACK","SIIA","7DEV", "360TECH",""];
 
   return (
     <section id="partners" className="py-32 container mx-auto px-6 relative z-20">
