@@ -122,7 +122,7 @@ const QuoteButton = ({ className = "", size = "default" }: { className?: string,
   const [details, setDetails] = useState("");
 
   const handleWhatsApp = () => {
-    const message = `Olá, gostaria de solicitar um orçamento para: *${projectType}*.\nDetalhes: ${details}`;
+    const message = `Olá Synctech! 👋\nGostaria de solicitar um orçamento.\n\n🚀 *Tipo de Projeto:* ${projectType.toUpperCase()}\n📝 *Detalhes:* ${details}\n\nAguardo retorno!`;
     const url = `https://wa.me/244946808054?text=${encodeURIComponent(message)}`;
     window.open(url, "_blank");
     setOpen(false);
@@ -139,77 +139,61 @@ const QuoteButton = ({ className = "", size = "default" }: { className?: string,
       </Button>
 
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent className="bg-[#0F1218] border-white/10 text-white sm:max-w-[425px]">
-          <DialogHeader>
-            <DialogTitle>Solicitar Orçamento</DialogTitle>
-            <DialogDescription className="text-gray-400">
-              Conte-nos sobre o seu projeto e entraremos em contacto via WhatsApp.
-            </DialogDescription>
-          </DialogHeader>
+        <DialogContent className="bg-[#0F1218] border-white/10 text-white sm:max-w-[500px] p-0 overflow-hidden gap-0">
+           <div className="relative h-32 bg-gradient-to-r from-[#FF7A3A] to-[#FF4E8B] p-6 flex flex-col justify-end">
+             <div className="absolute top-4 right-4 opacity-20">
+                <img src={logo} className="h-24 w-auto" />
+             </div>
+             <DialogTitle className="text-2xl font-bold text-white z-10">Vamos criar algo incrível?</DialogTitle>
+             <DialogDescription className="text-white/80 z-10">
+               Conte-nos sobre sua ideia e a transformaremos em realidade.
+             </DialogDescription>
+           </div>
           
-          <div className="grid gap-4 py-4">
-            <div className="space-y-2">
-              <Label>Tipo de Projeto</Label>
-              <RadioGroup defaultValue="mobile" onValueChange={setProjectType} className="grid grid-cols-2 gap-2">
-                <div>
-                  <RadioGroupItem value="mobile" id="mobile" className="peer sr-only" />
-                  <Label
-                    htmlFor="mobile"
-                    className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
-                  >
-                    <Smartphone className="mb-2 h-6 w-6" />
-                    App Mobile
-                  </Label>
-                </div>
-                <div>
-                  <RadioGroupItem value="web" id="web" className="peer sr-only" />
-                  <Label
-                    htmlFor="web"
-                    className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
-                  >
-                    <Globe className="mb-2 h-6 w-6" />
-                    Website/Web App
-                  </Label>
-                </div>
-                <div>
-                  <RadioGroupItem value="hybrid" id="hybrid" className="peer sr-only" />
-                  <Label
-                    htmlFor="hybrid"
-                    className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
-                  >
-                    <Cpu className="mb-2 h-6 w-6" />
-                    Híbrido
-                  </Label>
-                </div>
-                <div>
-                  <RadioGroupItem value="other" id="other" className="peer sr-only" />
-                  <Label
-                    htmlFor="other"
-                    className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
-                  >
-                    <Server className="mb-2 h-6 w-6" />
-                    Outro
-                  </Label>
-                </div>
+           <div className="p-6 grid gap-6">
+            <div className="space-y-3">
+              <Label className="text-xs font-bold uppercase tracking-wider text-gray-400">O que você precisa?</Label>
+              <RadioGroup defaultValue="mobile" onValueChange={setProjectType} className="grid grid-cols-2 gap-3">
+                {[
+                  { id: "mobile", icon: Smartphone, label: "App Mobile" },
+                  { id: "web", icon: Globe, label: "Website / WebApp" },
+                  { id: "hybrid", icon: Cpu, label: "Sistema Híbrido" },
+                  { id: "consulting", icon: Users, label: "Consultoria TI" }
+                ].map((item) => (
+                  <div key={item.id}>
+                    <RadioGroupItem value={item.id} id={item.id} className="peer sr-only" />
+                    <Label
+                      htmlFor={item.id}
+                      className="flex flex-col items-center justify-center gap-2 rounded-xl border border-white/10 bg-white/5 p-4 hover:bg-white/10 hover:border-primary/50 peer-data-[state=checked]:border-primary peer-data-[state=checked]:bg-primary/10 transition-all cursor-pointer h-24"
+                    >
+                      <item.icon className="h-6 w-6 text-gray-300 peer-data-[state=checked]:text-primary" />
+                      <span className="text-sm font-medium">{item.label}</span>
+                    </Label>
+                  </div>
+                ))}
               </RadioGroup>
             </div>
             
-            <div className="space-y-2">
-              <Label htmlFor="details">Breve Descrição</Label>
+            <div className="space-y-3">
+              <Label htmlFor="details" className="text-xs font-bold uppercase tracking-wider text-gray-400">Detalhes do Projeto</Label>
               <Textarea 
                 id="details" 
-                placeholder="Descreva brevemente o que precisa..." 
+                placeholder="Descreva suas funcionalidades principais, prazo ideal, ou referências..." 
                 value={details}
                 onChange={(e) => setDetails(e.target.value)}
-                className="bg-black/20 border-white/10"
+                className="bg-black/20 border-white/10 min-h-[100px] focus:border-primary/50 resize-none"
               />
             </div>
-          </div>
           
-          <Button onClick={handleWhatsApp} className="w-full bg-[#25D366] hover:bg-[#128C7E] text-white font-bold">
-            <MessageSquare className="mr-2 h-4 w-4" />
-            Enviar no WhatsApp
-          </Button>
+            <Button onClick={handleWhatsApp} className="w-full bg-[#25D366] hover:bg-[#128C7E] text-white font-bold h-12 rounded-xl text-base shadow-lg shadow-green-900/20">
+              <MessageSquare className="mr-2 h-5 w-5" />
+              Solicitar via WhatsApp
+            </Button>
+            
+            <p className="text-center text-xs text-muted-foreground">
+              Resposta média em menos de 15 minutos.
+            </p>
+          </div>
         </DialogContent>
       </Dialog>
     </>
@@ -267,26 +251,16 @@ const Hero = () => {
   );
 };
 
-const TechStack = () => {
-  const techs = [
-    { name: "Java", icon: Code },
-    { name: "Python", icon: Code },
-    { name: "TypeScript", icon: Code },
-    { name: "JavaScript", icon: Code },
-    { name: "NodeJS", icon: Server },
-    { name: "Azure", icon: Database },
-  ];
+import techStackLogos from "@assets/generated_images/row_of_tech_stack_logos.png";
 
+const TechStack = () => {
   return (
     <section className="py-12 border-y border-white/5 bg-black/40 backdrop-blur-sm overflow-hidden relative z-20">
       <div className="absolute inset-0 bg-gradient-to-r from-background via-transparent to-background z-10 pointer-events-none" />
       
-      <div className="flex gap-12 animate-marquee whitespace-nowrap">
-        {[...techs, ...techs, ...techs, ...techs].map((t, i) => (
-           <div key={i} className="flex items-center gap-3 opacity-50 hover:opacity-100 transition-opacity">
-             <t.icon className="w-6 h-6 text-primary" />
-             <span className="text-lg font-semibold text-white/80">{t.name}</span>
-           </div>
+      <div className="flex gap-24 animate-marquee whitespace-nowrap items-center">
+        {[1, 2, 3, 4].map((i) => (
+           <img key={i} src={techStackLogos} alt="Tech Stack" className="h-12 w-auto opacity-50 hover:opacity-100 transition-opacity" />
         ))}
       </div>
       
@@ -304,37 +278,40 @@ const TechStack = () => {
 };
 
 const Partners = () => {
-  // Mock partners for now, repeating the name as placeholder
+  // Using the generated partner logos strip or text if loading fails
+  // Design based on the reference: Large card with glowing center
+  
   const partners = ["UNITEL", "BAI", "SONANGOL", "MININT", "AGT", "NCR", "Movicel"];
 
   return (
-    <section id="partners" className="py-24 relative z-20 bg-background">
-      <div className="container mx-auto px-6 mb-12 text-center">
-        <h2 className="text-2xl font-bold text-muted-foreground uppercase tracking-widest">Parceiros de Confiança</h2>
-      </div>
-
-      <div className="relative w-full overflow-hidden">
-        <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-background to-transparent z-10" />
-        <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-background to-transparent z-10" />
+    <section id="partners" className="py-24 container mx-auto px-6 relative z-20">
+      <div className="relative w-full rounded-[3rem] overflow-hidden bg-[#F5F5F7] dark:bg-[#070607] border border-white/5 min-h-[400px] flex flex-col items-center justify-center p-12">
         
-        <div className="flex gap-20 animate-marquee-rtl whitespace-nowrap py-8">
-          {[...partners, ...partners, ...partners].map((p, i) => (
-             <span key={i} className="text-4xl font-black text-transparent bg-clip-text bg-gradient-to-b from-white/20 to-white/5 hover:from-white/40 hover:to-white/10 transition-all cursor-default select-none">
-               {p}
-             </span>
-          ))}
+        {/* The Reference Glow Effect - Purple/Pink Gradient */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[60%] h-[60%] bg-gradient-to-r from-[#FF4E8B] via-[#FF7A3A] to-[#7C4DFF] blur-[120px] opacity-40 dark:opacity-20 pointer-events-none" />
+        
+        <div className="relative z-10 text-center mb-16">
+          <h2 className="text-4xl md:text-6xl font-bold tracking-tighter text-black dark:text-white mb-4">
+            Trusted by<br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-white/60">
+              Industry Leaders
+            </span>
+          </h2>
+        </div>
+
+        <div className="relative w-full overflow-hidden">
+          <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-[#F5F5F7] dark:from-[#070607] to-transparent z-10" />
+          <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-[#F5F5F7] dark:from-[#070607] to-transparent z-10" />
+          
+          <div className="flex gap-24 animate-marquee whitespace-nowrap items-center">
+            {[...partners, ...partners, ...partners].map((p, i) => (
+               <span key={i} className="text-3xl md:text-4xl font-bold text-black/80 dark:text-white/80 hover:text-black dark:hover:text-white transition-colors cursor-default select-none tracking-widest uppercase">
+                 {p}
+               </span>
+            ))}
+          </div>
         </div>
       </div>
-
-      <style>{`
-        @keyframes marquee-rtl {
-          0% { transform: translateX(-50%); }
-          100% { transform: translateX(0); }
-        }
-        .animate-marquee-rtl {
-          animation: marquee-rtl 40s linear infinite;
-        }
-      `}</style>
     </section>
   );
 };
@@ -360,9 +337,15 @@ const Gallery = () => {
             <div className="md:col-span-2 md:row-span-2 relative rounded-3xl overflow-hidden group">
                <img src={images[1]} alt="Team" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy" />
                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-80" />
+               
+               {/* Logo Watermark */}
+               <div className="absolute top-6 right-6 opacity-30">
+                 <img src={logo} className="h-8 w-auto" />
+               </div>
+
                <div className="absolute bottom-6 left-6">
                  <span className="px-3 py-1 rounded-full bg-white/10 backdrop-blur text-xs border border-white/10 mb-2 inline-block">Eventos</span>
-                 <h3 className="text-xl font-bold">Angola Tech Summit</h3>
+                 <h3 className="text-xl font-bold">ANGOLA ICT FORUM 2024</h3>
                </div>
             </div>
             
@@ -383,7 +366,7 @@ const Gallery = () => {
 
 const AIChat = () => {
   const [messages, setMessages] = useState([
-    { role: "ai", content: "Olá! Sou a IA da Synctech. Como posso ajudar a transformar o seu negócio hoje?" }
+    { role: "ai", content: "Olá! Sou a Synctech AI. Estou conectada a nossa base de conhecimento. Posso ajudar com orçamentos, portfólio ou detalhes técnicos da nossa stack." }
   ]);
   const [input, setInput] = useState("");
   const [isTyping, setIsTyping] = useState(false);
@@ -396,96 +379,118 @@ const AIChat = () => {
     setInput("");
     setIsTyping(true);
 
-    // Simulate AI response for mockup purposes (would connect to Gemini API here)
+    // Enhanced Mock Response Logic
     setTimeout(() => {
-      let response = "Posso fornecer mais detalhes sobre nossos serviços de desenvolvimento de software, infraestrutura de TI ou consultoria tecnológica.";
-      if (input.toLowerCase().includes("preço") || input.toLowerCase().includes("orçamento")) {
-        response = "Para orçamentos precisos, recomendo usar nosso botão 'Solicitar Orçamento' no topo da página. Desenvolvemos soluções personalizadas para cada necessidade.";
-      } else if (input.toLowerCase().includes("contato") || input.toLowerCase().includes("email")) {
-        response = "Você pode entrar em contato pelo telefone 946808054 ou email contacto@synctech.ao.";
+      let response = "Interessante! Posso conectar você a um de nossos especialistas para discutir isso em detalhes.";
+      const lowerInput = input.toLowerCase();
+      
+      if (lowerInput.includes("preço") || lowerInput.includes("orçamento") || lowerInput.includes("valor") || lowerInput.includes("quanto custa")) {
+        response = "Os valores variam conforme a complexidade. Projetos simples começam sob consulta, mas para um valor exato, por favor use o botão 'Solicitar Orçamento' acima. Analisamos cada caso individualmente para oferecer o melhor custo-benefício.";
+      } else if (lowerInput.includes("contato") || lowerInput.includes("email") || lowerInput.includes("telefone") || lowerInput.includes("falar")) {
+        response = "Nossos canais diretos são:\n📞 946808054\n✉️ contacto@synctech.ao\n📍 Luanda, Angola\n\nTambém respondemos rapidamente pelo WhatsApp!";
+      } else if (lowerInput.includes("tecnologia") || lowerInput.includes("stack") || lowerInput.includes("linguagem") || lowerInput.includes("java") || lowerInput.includes("python")) {
+        response = "Nossa stack principal inclui Java, Python, TypeScript/Node.js e Azure para nuvem. Escolhemos a tecnologia ideal baseada na necessidade do seu projeto, garantindo performance e escalabilidade.";
+      } else if (lowerInput.includes("site") || lowerInput.includes("app") || lowerInput.includes("sistema")) {
+        response = "Desenvolvemos desde Landing Pages de alta conversão até Super Apps complexos e Sistemas ERP. Temos experiência em Mobile (iOS/Android), Web e Híbridos.";
+      } else if (lowerInput.includes("suporte") || lowerInput.includes("manutenção")) {
+        response = "Sim! Nosso lema é 'Inovação, Suporte e Infraestrutura'. Oferecemos contratos de manutenção contínua para garantir que seu software nunca pare.";
       }
       
       setMessages(prev => [...prev, { role: "ai", content: response }]);
       setIsTyping(false);
-    }, 1500);
+    }, 1200);
   };
 
   return (
-    <section className="py-24 border-t border-white/5 bg-[#0F1218]/50">
-      <div className="container mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center">
+    <section className="py-24 border-t border-white/5 bg-[#0F1218]/50 relative overflow-hidden">
+      {/* Background Accents */}
+      <div className="absolute top-0 right-0 w-96 h-96 bg-purple-500/10 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-96 h-96 bg-blue-500/10 rounded-full blur-[120px] pointer-events-none" />
+
+      <div className="container mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center relative z-10">
         <div>
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/20 text-purple-400 text-xs font-bold mb-6">
             <Zap size={12} /> POWERED BY GEMINI 2.5
           </div>
-          <h2 className="text-4xl font-bold mb-6">Converse com nossa Inteligência</h2>
+          <h2 className="text-4xl font-bold mb-6">Inteligência que entende <br/>o seu negócio</h2>
           <p className="text-muted-foreground text-lg mb-8 leading-relaxed">
-            Nossa IA foi treinada com todo o contexto da Synctech para tirar suas dúvidas instantaneamente.
-            Experimente perguntar sobre nossos serviços, tecnologias ou cultura.
+            Nossa IA não é apenas um chatbot. Ela entende o contexto da Synctech, nossa infraestrutura e pode guiar você para a solução ideal antes mesmo de falar com um humano.
           </p>
           
           <div className="space-y-4">
-            {["Quais tecnologias vocês usam?", "Como solicito um orçamento?", "Fazem manutenção de servidores?"].map((q, i) => (
+            {[
+              "Quais tecnologias a Synctech usa?", 
+              "Preciso de um App Mobile, como funciona?", 
+              "Vocês dão suporte após o lançamento?"
+            ].map((q, i) => (
               <button 
                 key={i}
-                onClick={() => setInput(q)}
-                className="block w-full text-left p-4 rounded-xl bg-white/5 border border-white/5 hover:bg-white/10 transition-colors text-sm"
+                onClick={() => { setInput(q); handleSend(); }}
+                className="flex items-center justify-between w-full text-left p-4 rounded-xl bg-white/5 border border-white/5 hover:bg-white/10 hover:border-purple-500/30 transition-all group"
               >
-                {q}
+                <span className="text-sm font-medium">{q}</span>
+                <ArrowRight size={16} className="opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all text-purple-400" />
               </button>
             ))}
           </div>
         </div>
 
-        <div className="bg-black border border-white/10 rounded-2xl overflow-hidden h-[500px] flex flex-col shadow-2xl">
-          <div className="p-4 border-b border-white/10 bg-white/5 flex items-center gap-3">
-            <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-purple-500 to-blue-500 flex items-center justify-center">
-              <Cpu size={16} className="text-white" />
-            </div>
-            <div>
-              <div className="font-bold text-sm">Synctech AI</div>
-              <div className="text-xs text-green-400 flex items-center gap-1">
-                <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" /> Online
+        <div className="bg-black/80 backdrop-blur-xl border border-white/10 rounded-2xl overflow-hidden h-[600px] flex flex-col shadow-2xl ring-1 ring-white/5">
+          <div className="p-4 border-b border-white/10 bg-white/5 flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="relative">
+                <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-purple-600 to-blue-600 flex items-center justify-center shadow-lg shadow-purple-500/20">
+                  <Cpu size={18} className="text-white" />
+                </div>
+                <span className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-500 border-2 border-black rounded-full"></span>
               </div>
+              <div>
+                <div className="font-bold text-sm">Synctech Assistant</div>
+                <div className="text-xs text-purple-300/80">Gemini 2.5 Model</div>
+              </div>
+            </div>
+            <div className="p-2 hover:bg-white/5 rounded-full cursor-pointer">
+               <img src={logo} className="h-4 w-auto opacity-50" />
             </div>
           </div>
 
-          <div className="flex-1 p-4 overflow-y-auto space-y-4 scrollbar-thin scrollbar-thumb-white/10">
+          <div className="flex-1 p-6 overflow-y-auto space-y-6 scrollbar-thin scrollbar-thumb-white/10">
             {messages.map((m, i) => (
               <div key={i} className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-                <div className={`max-w-[80%] p-3 rounded-2xl text-sm ${
+                <div className={`max-w-[85%] p-4 rounded-2xl text-sm leading-relaxed shadow-sm ${
                   m.role === 'user' 
-                    ? 'bg-primary text-primary-foreground rounded-tr-none' 
-                    : 'bg-white/10 text-white rounded-tl-none'
+                    ? 'bg-gradient-to-br from-primary to-orange-600 text-white rounded-tr-none shadow-orange-500/10' 
+                    : 'bg-[#1A1D24] border border-white/5 text-gray-200 rounded-tl-none'
                 }`}>
-                  {m.content}
+                  <p className="whitespace-pre-line">{m.content}</p>
                 </div>
               </div>
             ))}
             {isTyping && (
               <div className="flex justify-start">
-                <div className="bg-white/10 p-3 rounded-2xl rounded-tl-none flex gap-1">
-                  <span className="w-1.5 h-1.5 bg-white/50 rounded-full animate-bounce" />
-                  <span className="w-1.5 h-1.5 bg-white/50 rounded-full animate-bounce delay-75" />
-                  <span className="w-1.5 h-1.5 bg-white/50 rounded-full animate-bounce delay-150" />
+                <div className="bg-[#1A1D24] border border-white/5 p-4 rounded-2xl rounded-tl-none flex gap-1.5 items-center h-12">
+                  <span className="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce" />
+                  <span className="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce delay-75" />
+                  <span className="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce delay-150" />
                 </div>
               </div>
             )}
           </div>
 
-          <div className="p-4 border-t border-white/10 bg-white/5">
+          <div className="p-4 border-t border-white/10 bg-[#0F1218]">
             <div className="relative">
               <input 
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={(e) => e.key === 'Enter' && handleSend()}
-                placeholder="Digite sua mensagem..."
-                className="w-full bg-black/50 border border-white/10 rounded-full pl-4 pr-12 py-3 text-sm focus:outline-none focus:border-primary/50 transition-colors"
+                placeholder="Pergunte sobre nossos serviços..."
+                className="w-full bg-white/5 border border-white/10 rounded-xl pl-4 pr-12 py-4 text-sm focus:outline-none focus:border-purple-500/50 focus:bg-white/10 transition-all text-white placeholder:text-gray-500"
               />
               <button 
                 onClick={handleSend}
-                className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 bg-primary rounded-full flex items-center justify-center hover:opacity-90 transition-opacity"
+                className="absolute right-2 top-1/2 -translate-y-1/2 w-10 h-10 bg-primary rounded-lg flex items-center justify-center hover:opacity-90 transition-all shadow-lg shadow-orange-500/20"
               >
-                <Send size={14} className="text-white ml-0.5" />
+                <Send size={16} className="text-white ml-0.5" />
               </button>
             </div>
           </div>
