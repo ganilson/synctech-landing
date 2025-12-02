@@ -1,0 +1,215 @@
+{
+  "metadata": {
+    "name": "Pluma Design System - versão visual inspirada (screenshot)",
+    "description": "Guia de design de alto nível para construir a landing Pluma. Uso: instruir geradores IA, desenvolvedores front-end e ferramentas de design.",
+    "author": "Diretor Criativo (prompt gerado por assistente)",
+    "date": "2025-12-02",
+    "primary_tooling": ["React", "Shadcn UI", "Tailwind CSS", "Lucide Icons"]
+  },
+  "colors": {
+    "mode": ["dark", "light"],
+    "palette": {
+      "dark": {
+        "bg": "#070607",
+        "surface": "rgba(255,255,255,0.03)",
+        "muted": "rgba(255,255,255,0.12)",
+        "text": "#F5F5F7",
+        "accentWarmStart": "#FF7A3A",
+        "accentWarmEnd": "#FF4E8B",
+        "accentCoolStart": "#6EE7F3",
+        "accentCoolEnd": "#7C4DFF",
+        "glassBorder": "rgba(255,255,255,0.06)",
+        "cardBg": "linear-gradient(135deg, rgba(255,255,255,0.02), rgba(0,0,0,0.12))"
+      },
+      "light": {
+        "bg": "#FFFFFF",
+        "surface": "#F6F6F6",
+        "muted": "#6B6B6B",
+        "text": "#0F172A",
+        "accentPrimary": "#0F766E",
+        "accentSecondary": "#FF7A3A",
+        "cardBg": "#FFFFFF"
+      },
+      "textures": {
+        "noise": "rgba(255,255,255,0.02)",
+        "radial": "radial-gradient(ellipse at center, rgba(255,120,80,0.06), transparent 40%)"
+      }
+    },
+    "usage": {
+      "hero_dark": ["accentWarmStart", "accentCoolEnd"],
+      "cta": ["accentWarmStart", "accentWarmEnd"],
+      "safety_section": ["#EBE8D8 (texture base)"]
+    }
+  },
+  "typography": {
+    "fontFamilies": {
+      "display": "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial",
+      "body": "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial",
+      "mono": "ui-monospace, SFMono-Regular, Menlo, Monaco, 'Roboto Mono', monospace"
+    },
+    "scale": {
+      "h1": {
+        "desktop": "clamp(48px, 8vw, 120px)",
+        "tablet": "clamp(36px, 6.5vw, 72px)",
+        "mobile": "clamp(28px, 7vw, 44px)",
+        "weight": 700,
+        "lineHeight": 0.95,
+        "letterSpacing": "-0.02em"
+      },
+      "h2": {
+        "desktop": "36px",
+        "tablet": "28px",
+        "mobile": "22px",
+        "weight": 600
+      },
+      "h3": {"size": "18px", "weight": 600},
+      "body": {"size": "16px", "weight": 400, "lineHeight": 1.6},
+      "muted": {"size": "14px", "weight": 400, "color": "muted"}
+    },
+    "usage": {
+      "hero_title": "display",
+      "sections": "h2",
+      "cards_title": "h3",
+      "ui": "body"
+    }
+  },
+  "spacing": {
+    "unit": 8,
+    "gutter": {"mobile": 16, "tablet": 24, "desktop": 48},
+    "container": {"mobile": 20, "tablet": 36, "desktop": 120},
+    "componentSpacing": {
+      "sectionVertical": 96,
+      "sectionCompact": 48,
+      "cardPadding": 24,
+      "heroPadding": 48
+    }
+  },
+  "layout": {
+    "grid": {
+      "desktop": {"columns": 12, "maxWidth": 1400},
+      "tablet": {"columns": 8, "maxWidth": 992},
+      "mobile": {"columns": 4, "maxWidth": 480}
+    },
+    "hero": {
+      "columns": 2,
+      "ratio": "6 / 6 on desktop; stacked on mobile",
+      "alignment": "center vertically; left align text column"
+    },
+    "cards_row": {"columns": 3, "gap": 24, "wrap": true}
+  },
+  "components": {
+    "button": {
+      "primary": {
+        "shape": "pill",
+        "padding": "py-3 px-6",
+        "fontWeight": 600,
+        "border": "none",
+        "background": "gradient(accentWarmStart->accentWarmEnd)",
+        "boxShadow": "0 8px 30px rgba(255,120,80,0.12)",
+        "hover": {"transform": "translateY(-2px)", "glow": true},
+        "focus": {"outline": "2px solid rgba(255,255,255,0.06)", "ring": true}
+      },
+      "ghost": {
+        "shape": "pill",
+        "padding": "py-2 px-5",
+        "border": "1px solid rgba(255,255,255,0.08)",
+        "background": "transparent",
+        "hover": {"bg": "rgba(255,255,255,0.02)"}
+      }
+    },
+    "card": {
+      "glass": {
+        "background": "rgba(255,255,255,0.03)",
+        "backdropBlur": "12px",
+        "borderRadius": "16px",
+        "padding": "24px",
+        "boxShadow": "inset 0 -6px 18px rgba(0,0,0,0.6), 0 8px 30px rgba(0,0,0,0.45)"
+      },
+      "elevated": {
+        "background": "#0F172A",
+        "borderRadius": "12px",
+        "padding": "20px",
+        "boxShadow": "0 20px 40px rgba(12,12,12,0.6)"
+      }
+    },
+    "hero_blob": {
+      "shape": "organic, irregular",
+      "render": ["SVG path", "mask overlay"],
+      "gradient": ["accentWarmStart -> accentWarmEnd -> accentCoolEnd"],
+      "effects": ["soft gaussian blur", "multiply blending", "subtle parallax"],
+      "animation": {"type": "slow float", "duration": "8s", "loop": true}
+    },
+    "logo_row": {
+      "itemStyle": {
+        "bg": "rgba(255,255,255,0.02)",
+        "padding": "16px",
+        "borderRadius": "12px",
+        "minWidth": "120px",
+        "alignment": "center"
+      },
+      "hover": {"scale": 1.03, "glow": true}
+    },
+    "chat_ui": {
+      "container": {"width": "100%", "maxWidth": 820, "borderRadius": "14px", "bg": "cardBg", "padding": 16},
+      "message": {"borderRadius": 12, "padding": 12},
+      "suggestions": {
+        "layout": "horizontal scroll on mobile, grid on desktop",
+        "item": {"padding": "10px 14px", "borderRadius": "999px", "bg": "transparent", "hover": {"bg": "rgba(255,255,255,0.03)", "transform": "translateY(-2px)"}}
+      }
+    }
+  },
+  "imagery": {
+    "hero": {
+      "requirements": [
+        "SVG blobs with multi-stop gradients",
+        "1 short loop video (5-8s) of animated blobs",
+        "mock mobile screenshot of Pluma (card + chat bubble) floating in foreground"
+      ],
+      "formats": ["svg", "png@1x", "png@2x", "webp", "webm"]
+    },
+    "stock_photos": {
+      "style": "minimal, editorial, warm light, people using phones at desk, financial context, Latin America / Brazil faces when possible",
+      "usage": "Why Pluma, Hero secondary imagery"
+    }
+  },
+  "motion": {
+    "principles": ["subtle", "reduce motion friendly by media query (prefers-reduced-motion)"],
+    "timing": {"fast": 120, "medium": 300, "slow": 800},
+    "patterns": {
+      "hoverLift": {"translateY": -4, "duration": 200, "easing": "cubic-bezier(.2,.9,.2,1)"},
+      "fadeUp": {"translateY": 12, "opacity": 0->1, "duration": 420},
+      "parallax": {"multiplier": 0.05}
+    }
+  },
+  "accessibility": {
+    "contrast": "min 4.5:1 for body text",
+    "focus": "visible outlines on focusable elements",
+    "keyboard": "all interactive elements keyboard operable",
+    "aria": "labels for inputs & buttons, role declarations for landmark regions"
+  },
+  "responsive_rules": {
+    "breakpoints": {"sm": 640, "md": 768, "lg": 1024, "xl": 1280},
+    "hero_behavior": {
+      "desktop": "two-column layout with hero image right",
+      "tablet": "stack but keep hero image above text with reduced scale",
+      "mobile": "stack, large H1 scale down, CTA sticky/visible"
+    },
+    "cards_grid": {
+      "desktop": "3 columns",
+      "tablet": "2 columns",
+      "mobile": "1 column"
+    }
+  },
+  "tailwind_tokens_mapping": {
+    "radius_large": "rounded-2xl",
+    "radius_pill": "rounded-full",
+    "glass_blur": "backdrop-blur-md",
+    "shadow_soft": "shadow-[0_8px_30px_rgba(0,0,0,0.45)]",
+    "btn_primary": "py-3 px-6 font-semibold rounded-full",
+    "card_padding": "p-6"
+  },
+  "dev_notes": {
+    "shadcn_integration": "Wrap core primitives (Button, Card, Input) with design tokens. Use Lucide Icons package. Provide components: <Hero>, <FeatureCard>, <ChatMock>, <SafetyList>, <CtaSection>, <Footer>.",
+    "assets_delivery": "Export generated SVGs + webm to /public/assets. Provide optimized PNG/WebP fallbacks."
+  }
+}
